@@ -1,7 +1,7 @@
 
 Last updated: July 10, 2022
 
-# README: Local-Side Architecture
+# Local-Side Architecture
 
 This document provides instructions for setting up the local-side code for a remote communication system. It outlines the steps to run the local side code and explains its purpose in conjunction with the server-side code. Please follow these guidelines to ensure proper functioning of the system.
 
