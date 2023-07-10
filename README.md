@@ -18,7 +18,7 @@ This study introduces a novel strategy for achieving enhanced low-latency contro
 
 
 
-### Implementation setup on the remote vehicle
+## Implementation setup on the remote vehicle
 The Raspberry Pi is moving towards a 64-bit operating system. Within a year or so, the 32-bit OS will be fully replaced by the faster 64-bit version.
 
 ### Step #1: Installation of Raspberry Pi OS
