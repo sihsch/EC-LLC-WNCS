@@ -95,20 +95,7 @@ workon whatever
 Your prompt now begins with (whatever). This means you are now working in the VE named “whatever”. All packages installed using pip3 (when the whatever VE is active) are placed in the site-packages directory located at:
 ~/.virtualenvs/whatever/lib/python3.X/site-packages
 
-#### Step #4: Download the lineFollower project
-Download Project from our repository [link to repo](https://github.com/sihsch/EC-LLC-WNCS/archive/refs/heads/main.zip) using command:
- 
-```
-git clone https://github.com/sihsch/EC-LLC-WNCS
-
-```
-#### Step #5: Installing the requarments for the lineFollower project 
-We assume you have followed all the procedures from the biggining till here. Now we will install the necessary library to enable run our project
-
-```
-pip install -r requirements.txt
-```
-### Install OpenCV 4.5.5 on Raspberry Pi 3 or 4 (Building from source)
+### Step #4 Install OpenCV 4.5.5 on Raspberry Pi 3 or 4 (Building from source)
 This article helps you install OpenCV 4.5.5 on Raspberry Pi 3 or 4 with a 64-bit operation system.
 
 The difference is if you build from source, then you can enable or disable some functionalities, for example, you can build OpenCV with opencv_contrib module, Or
@@ -162,7 +149,29 @@ $ sudo reboot
 
 If you have installed OpenCV in a virtual environment, you need to make a symbolic link to the library. Without this link, OpenCV will not be found by python and the import fails. You can skip these steps if you have installed OpenCV without a virtual environment.
 
-#### Step #6: How to Run the Source Code
+
+```
+
+$ cd ~/.virtualenvs/cv450/lib/python3.9/site-packages
+$ ln -s /usr/local/lib/python3.9/site-packages/cv2/python-3.9/cv2.cpython-39m-arm-linux-gnueabihf.so
+$ cd ~
+```
+
+### Step #5: Download the lineFollower project
+Download Project from our repository [link to repo](https://github.com/sihsch/EC-LLC-WNCS/archive/refs/heads/main.zip) using command:
+ 
+```
+git clone https://github.com/sihsch/EC-LLC-WNCS
+
+```
+### Step #6: Installing the requarments for the lineFollower project 
+We assume you have followed all the procedures from the biggining till here. Now we will install the necessary library to enable run our project
+
+```
+pip install -r requirements.txt
+```
+
+#### Step #7: How to Run the Source Code
 
 | Syntax      | Description (Local side) |
 | ----------- | ----------- |
@@ -189,13 +198,3 @@ If you have installed OpenCV in a virtual environment, you need to make a symbol
 
 
 
-
-
-
-
-```
-
-$ cd ~/.virtualenvs/cv450/lib/python3.9/site-packages
-$ ln -s /usr/local/lib/python3.9/site-packages/cv2/python-3.9/cv2.cpython-39m-arm-linux-gnueabihf.so
-$ cd ~
-```
