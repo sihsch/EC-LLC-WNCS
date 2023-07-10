@@ -1,5 +1,5 @@
 
-Last updated: July 10, 2022
+Last updated: July 10, 2023
 
 # Local-Side Architecture
 
