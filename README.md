@@ -15,10 +15,6 @@ We implemented a testbed in which a remote server receiving camera image informa
 
 [Watch the video](https://youtu.be/UpQUypfKRn) Description: This video showcases the Autonomous Mobile Robot successfully following a designated path and presents the results of Improvement #2, highlighting its enhanced performance.
 
-
-
-The video footage of the Autonomous Mobile Robot following the path and the experiment result of improvement #2. [Watch the video](https://youtu.be/UpQUypfKRns)
-
 ## Implementation setup on the remote vehicle
 The Raspberry Pi is moving towards a 64-bit operating system. Within a year or so, the 32-bit OS will be fully replaced by the faster 64-bit version.
 
