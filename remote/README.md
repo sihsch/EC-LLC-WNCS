@@ -24,13 +24,11 @@ Follow these steps to set up the server-side code on your server machine:
 
 1. **Download:** Obtain the server-side code from the repository [link to repository](https://github.com/sihsch/EC-LLC-WNCS/archive/refs/heads/main.zip).
 
-2. **Transfer:** Copy the server-side code to your server machine. 
+2. **Install Dependencies:** 
 
-3. **Install Dependencies:** If the server-side code has any additional dependencies, install them by following the provided instructions. Use tools like `pip` to install Python packages, if necessary.
+3. **Run the Server:** Launch the server-side code by executing the main scripts or using the provided command. For example: `python remote_receiver.py`.
 
-4. **Run the Server:** Launch the server-side code by executing the main scripts or using the provided command. For example: `python remote_receiver.py`.
-
-5. **Verify Connectivity:** Ensure that the server is up and running without any errors. Check the server logs or console output for any messages indicating successful initialization.
+4. **Verify Connectivity:** Ensure that the server is up and running without any errors. Check the server logs or console output for any messages indicating successful initialization.
 
 ## Usage and Interaction
 
@@ -48,10 +46,10 @@ To utilize the system effectively, follow these general guidelines:
 
 ## Conclusion
 
-By following these instructions, you should have successfully set up the server-side code for remote communication. Remember to run the server-side code first before launching the local side code to establish proper communication channels. Should you encounter any difficulties or require further assistance, consult the documentation or reach out to the appropriate support channels.
+By following these instructions, you should have successfully set up the server-side code for remote communication. Remember to run the server-side code first before launching the local-side code to establish proper communication channels. Should you encounter any difficulties or require further assistance, consult the documentation or reach out to the appropriate support channels.
 
 
-#### How to Run the Source Code
+## How to Run the Source Code
 
 | Syntax      | Description (Remote side) |
 | ----------- | ----------- |
