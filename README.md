@@ -1,5 +1,5 @@
 
-Last updated: July 10, 2022
+Last updated: July 10, 2023
 ### Introduction
 The Raspberry Pi is moving towards a 64-bit operating system. Within a year or so, the 32-bit OS will be fully replaced by the faster 64-bit version.
 
