@@ -12,7 +12,7 @@ Follow these steps to set up the local-side code on your local machine:
 
 1. **Download:** Obtain the local-side code from the repository [link to repository](https://github.com/sihsch/EC-LLC-WNCS/archive/refs/heads/main.zip).
 
-2. **Install Dependencies:** If the local-side code has any additional dependencies, install them by following the provided instructions. Use tools like `pip` to install Python packages, if necessary.
+2. **Install Dependencies:** 
 
 3. **Run the Local-Side Code:** Launch the local-side code by executing the main script. For example: `python remote_sender.py`.
 
@@ -35,7 +35,7 @@ To utilize the system effectively, follow these general guidelines:
 By following these instructions, you should have successfully set up the local-side code for remote communication. Remember to ensure that the server-side code is running first before launching the local-side code to establish a connection. Should you encounter any difficulties or require further assistance, consult the documentation or reach out to the appropriate support channels.
 
 
-#### How to Run the Source Code
+## How to Run the Source Code
 
 | Syntax      | Description (Local side) |
 | ----------- | ----------- |
