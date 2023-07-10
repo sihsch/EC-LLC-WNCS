@@ -96,10 +96,11 @@ Your prompt now begins with (whatever). This means you are now working in the VE
 ~/.virtualenvs/whatever/lib/python3.X/site-packages
 
 #### Step #4: Download the lineFollower project
-Download Project from our repository [link to repo](https://github.com/sihsch/XXXXXXXXXXXXXXXXXXX) using command:
+Download Project from our repository [link to repo](https://github.com/sihsch/EC-LLC-WNCS/archive/refs/heads/main.zip) using command:
  
 ```
-git clone https://github.com/sihsch/XXXXXXXXXXXXXXXXXXX
+git clone https://github.com/sihsch/EC-LLC-WNCS
+
 ```
 #### Step #5: Installing the requarments for the lineFollower project 
 We assume you have followed all the procedures from the biggining till here. Now we will install the necessary library to enable run our project
@@ -171,7 +172,7 @@ $ sudo reboot
 #### Step #2: Installation script
 we created an installation script that executes all commands at once. It starts with the installation of the dependencies and ends with the ldconfig.
 ```
-wget https://github.com/sihsch/1wireless-vehicle/blob/master/linefollower/OpenCV-4-5-5.sh
+wget https://github.com/sihsch/EC-LLC-WNCS/OpenCV-4-5-5.sh
 sudo chmod 755 ./OpenCV-4-5-5.sh
 ./OpenCV-4-5-5.sh
 ```
