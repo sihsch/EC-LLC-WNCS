@@ -108,36 +108,6 @@ We assume you have followed all the procedures from the biggining till here. Now
 ```
 pip install -r requirements.txt
 ```
-
-#### Step #5: How to Run the Source Code
-
-| Syntax      | Description (Local side) |
-| ----------- | ----------- |
-|AlphaBot2.py       | contain the functionality to move the AlphaBot       |
-|full_local.py     | All the computation is performed by the mobile robot        |
-|full_local_display.py | All the computation is performed at the mobile robot, and this will display what the mobile robot camera sees       |
-|remote_sender.py  | offloads all the computation to the server      |
-|edgelv1.py        | Pre-process the image before offloading it to the server       |
-|edgelv2.py        | Pre-process the image before offloading it to the server       |
-|edgelv3.py        | Pre-process the image before offloading it to the server       |
-|adaptive_sender.py| The mobile robot offloads the information to the server only when a threshold is violated         |
-
-
-
-| Syntax      | Description (Remote side) |
-| ----------- | ----------- |
-| PID.py              | PID algorithm for smoothly tracking the line       |
-| imgProcessing.py    | For extracting useful information from the image         |
-| remote_receiver.py  | Receive an image from (remote_sender.py), process it, and return a control command        |
-| edge1_receiver.py   | Receive semi-processed information from (edgelv1.py), finalize the processing, and return a control command       |
-| edge2_receiver.py   | Receive semi-processed information from (edgelv2.py), finalize the processing, and return a control command       |
-| edge3_receiver.py   | Receive semi-processed information from (edgelv3.py), finalize the processing, and return a control command       |
-| adaptive_receiver.py| Receive from (adaptive_sender.py) communication       |
-
-
-
-
-
 ### Install OpenCV 4.5.5 on Raspberry Pi 3 or 4 (Building from source)
 This article helps you install OpenCV 4.5.5 on Raspberry Pi 3 or 4 with a 64-bit operation system.
 
@@ -191,6 +161,37 @@ $ sudo reboot
 ```
 
 If you have installed OpenCV in a virtual environment, you need to make a symbolic link to the library. Without this link, OpenCV will not be found by python and the import fails. You can skip these steps if you have installed OpenCV without a virtual environment.
+
+#### Step #6: How to Run the Source Code
+
+| Syntax      | Description (Local side) |
+| ----------- | ----------- |
+|AlphaBot2.py       | contain the functionality to move the AlphaBot       |
+|full_local.py     | All the computation is performed by the mobile robot        |
+|full_local_display.py | All the computation is performed at the mobile robot, and this will display what the mobile robot camera sees       |
+|remote_sender.py  | offloads all the computation to the server      |
+|edgelv1.py        | Pre-process the image before offloading it to the server       |
+|edgelv2.py        | Pre-process the image before offloading it to the server       |
+|edgelv3.py        | Pre-process the image before offloading it to the server       |
+|adaptive_sender.py| The mobile robot offloads the information to the server only when a threshold is violated         |
+
+
+
+| Syntax      | Description (Remote side) |
+| ----------- | ----------- |
+| PID.py              | PID algorithm for smoothly tracking the line       |
+| imgProcessing.py    | For extracting useful information from the image         |
+| remote_receiver.py  | Receive an image from (remote_sender.py), process it, and return a control command        |
+| edge1_receiver.py   | Receive semi-processed information from (edgelv1.py), finalize the processing, and return a control command       |
+| edge2_receiver.py   | Receive semi-processed information from (edgelv2.py), finalize the processing, and return a control command       |
+| edge3_receiver.py   | Receive semi-processed information from (edgelv3.py), finalize the processing, and return a control command       |
+| adaptive_receiver.py| Receive from (adaptive_sender.py) communication       |
+
+
+
+
+
+
 
 ```
 
