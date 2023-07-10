@@ -4,8 +4,6 @@ Last updated: July 10, 2023
 
 <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-yellow.svg"></a>  
 
-## Official implementation for the paper ["Edge Computing enabled Low-Latency Communication for Wireless Networked Control System"]
-
 ## Description 
 We implemented a testbed in which a remote server receiving camera image information from an Autonomous Mobile Robot (AMR) creates a control command for moving the AMR and sends it back to the AMR. When the camera image information is transmitted to the server that performs edge computing, frequent transmission of camera information may adversely affect the performance of the entire system by increasing the load of the network. To solve this problem, two improvements were studied.
  
