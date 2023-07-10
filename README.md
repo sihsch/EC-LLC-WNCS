@@ -13,9 +13,7 @@ We implemented a testbed in which a remote server receiving camera image informa
 (The mobile robot deployed in the testbed is manufactured by Waveshare Electronics and integrated with a Raspberry Pi 3B+.)
 
 
-[Watch the video](https://youtu.be/UpQUypfKRn)
-
-Description: This video showcases the Autonomous Mobile Robot successfully following a designated path and presents the results of Improvement #2, highlighting its enhanced performance.
+[Watch the video](https://youtu.be/UpQUypfKRn) Description: This video showcases the Autonomous Mobile Robot successfully following a designated path and presents the results of Improvement #2, highlighting its enhanced performance.
 
 
 
