@@ -7,7 +7,12 @@ Last updated: July 10, 2023
 ## Official implementation for the paper ["Edge Computing enabled Low-Latency Communication for Wireless Networked Control System"]
 
 ## Description 
+
+<div style="text-align: justify;">
 This study introduces a novel strategy for achieving enhanced low-latency control performance in Wireless Networked Control Systems (WNCS) via the integration of edge computing. Traditional networked control systems necessitate the receipt of raw data from distant sensors to enable the controller to generate an appropriate control command, a process that often results in substantial periodic communication traffic and resultant performance degradation in certain applications. To mitigate this, we suggest the use of edge computing to preprocess raw data, distill critical features, and subsequently transmit them. Moreover, we present an adaptive scheme aimed at curtailing regularly occurring data traffic by adaptively altering periodic data transmission based on necessity. This is achieved by abstaining from data transmission when a comparative analysis of previously transmitted and newly generated data indicates no significant update. The effectiveness of our proposed strategy is empirically validated through experiments conducted on a remote control system testbed using a mobile robot that navigates the road by utilizing camera information. Leveraging edge computing resulted in the transmission of merely 3.42% of raw data. Our adaptive scheme reduced transmission frequency by 20%, all the while maintaining acceptable control performance. The experimental results corroborate that our proposed strategy significantly ameliorates the latency performance of WNCS.
+</div>
+
+
 
 ### Introduction
 The Raspberry Pi is moving towards a 64-bit operating system. Within a year or so, the 32-bit OS will be fully replaced by the faster 64-bit version.
