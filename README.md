@@ -157,7 +157,7 @@ $ ln -s /usr/local/lib/python3.9/site-packages/cv2/python-3.9/cv2.cpython-39m-ar
 $ cd ~
 ```
 
-### Step #5: Download the lineFollower project
+### Step #5: Download the EC-LLC-WNCS project
 Download Project from our repository [link to repo](https://github.com/sihsch/EC-LLC-WNCS/archive/refs/heads/main.zip) using command:
  
 ```
