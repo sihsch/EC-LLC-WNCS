@@ -1,22 +1,18 @@
 
 Last updated: July 10, 2023
-# Edge Computing enabled Low-Latency Communication for Wireless Networked Control System
+# Autonomous Mobile Robot controlled by Edge Computing
 
 <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-yellow.svg"></a>  
 
 ## Official implementation for the paper ["Edge Computing enabled Low-Latency Communication for Wireless Networked Control System"]
 
 ## Description 
-
-<div style="text-align: justify;">
-This study introduces a novel strategy for achieving enhanced low-latency control performance in Wireless Networked Control Systems (WNCS) via the integration of edge computing. Traditional networked control systems necessitate the receipt of raw data from distant sensors to enable the controller to generate an appropriate control command, a process that often results in substantial periodic communication traffic and resultant performance degradation in certain applications. To mitigate this, we suggest the use of edge computing to preprocess raw data, distill critical features, and subsequently transmit them. Moreover, we present an adaptive scheme aimed at curtailing regularly occurring data traffic by adaptively altering periodic data transmission based on necessity. This is achieved by abstaining from data transmission when a comparative analysis of previously transmitted and newly generated data indicates no significant update. 
-
-
+We implemented a testbed in which a remote server receiving camera image information from an Autonomous Mobile Robot (AMR) creates a control command for moving the AMR and sends it back to the AMR. When the camera image information is transmitted to the server that performs edge computing, frequent transmission of camera information may adversely affect the performance of the entire system by increasing the load of the network. To solve this problem, two improvements were studied.
  
- The effectiveness of our proposed strategy is empirically validated through experiments conducted on a remote control system testbed using a mobile robot that navigates the road by utilizing camera information. The remote vehicle follows a predetermined route while being operated by a server that processes camera data from the vehicle and sends appropriate control commands. Connectivity is maintained via a wireless network, which transmits the state of the actuator (in this case, the remote vehicle) and allows the server to issue control commands. The system under consideration comprises two main components: the remote vehicle and the server. The vehicle provides sensor data concerning its environment to the server, which processes this information and makes decisions in real-time. These decisions are then transmitted back to the vehicle through the wireless channel, enabling it to execute assigned tasks. The ongoing communication keeps the remote control system operational. (The mobile robot deployed in the testbed is manufactured by Waveshare Electronics and integrated with a Raspberry Pi 3B+.)
-</div>
+1. Transmitted image information is preprocessed in AMR and only a very small amount of data is transmitted.
+2. Instead of transmitting video information at regular intervals, video information is transmitted only when surprising information comes in.
 
-
+(The mobile robot deployed in the testbed is manufactured by Waveshare Electronics and integrated with a Raspberry Pi 3B+.)
 
 ## Implementation setup on the remote vehicle
 The Raspberry Pi is moving towards a 64-bit operating system. Within a year or so, the 32-bit OS will be fully replaced by the faster 64-bit version.
