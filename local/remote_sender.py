@@ -1,94 +1,77 @@
 from AlphaBot2 import AlphaBot2
-import sys
 import time
-import traceback
 import cv2
-import pickle
-import zmq
-
-rawCapture = cv2.VideoCapture(0)
-time.sleep(2)
-rawCapture.set(3, 160)
-rawCapture.set(4, 128)
-maximum = 13
-Ab = AlphaBot2()
-
-command_recv_time_list = []
-data_processing_time_list = []
-data_transmition_time_list = []
-looptime_list = []
-image_serial = []
-i = 0
-
-def cal_average(time_list):
-    if len(time_list) != 0:
-        return sum(time_list) / len(time_list)
-    else:
-        return 0
-
-context = zmq.Context()
-print("Connecting to hello world server…")
-socket = context.socket(zmq.REQ)
-socket.connect("tcp://192.168.108.153:5554")
-
-try:
-    while True:
-        t = time.time()
-        t2 = time.time()
-        t3 = time.process_time()
-        
-        ret, image = rawCapture.read()
-        i += 1
-        serialized_dict = pickle.dumps([image,i])
-        socket.send(serialized_dict)
-        reply_from_server = socket.recv()
-        command_recv_time = time.time()-t2
-        
-        c = pickle.loads(reply_from_server)
-        index , command = c
 
 
-        command_recv_time = time.time()-t
-        outsidetime = time.process_time() - t3
-        transmition_time = command_recv_time - outsidetime
-        data_transmition_time_list.append(transmition_time)
-        command_recv_time_list.append(command_recv_time)
+def lineTracker():
+    Ab = AlphaBot2()
 
-        power_difference = float(command)
+    maximum = 11
+    integral = 0
+    last_proportional = 0
 
-        Ab.forward()
-        power_difference = max(min(power_difference, maximum), -maximum)
+    rawCapture = cv2.VideoCapture(0)
+    time.sleep(2)
+    rawCapture.set(3, 160)
+    rawCapture.set(4, 128)
 
-        # Manoeuvring the alphabot
-        if (power_difference < 0):
-            Ab.setPWMA(maximum + power_difference )
-            Ab.setPWMB(maximum)
-        else:
-            Ab.setPWMA(maximum)
-            Ab.setPWMB(maximum - power_difference )
-            
-            
-        looptime = time.time()-t
-        looptime_list.append(looptime)
+    try:
+        while True:
+            ret, frame = rawCapture.read()
+            gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+            blur = cv2.GaussianBlur(gray, (5, 5), 0)
+            ret, thresh = cv2.threshold(blur, 60, 255, cv2.THRESH_BINARY_INV)
+
+            contours, hierarchy = cv2.findContours(thresh.copy(), 1, cv2.CHAIN_APPROX_NONE)
+
+            if len(contours) > 0:
+                c = max(contours, key=cv2.contourArea)
+                M = cv2.moments(c)
+                cx = int(M["m10"] / M["m00"]) if M["m00"] != 0 else 160
+                cy = int(M["m01"] / M["m00"]) if M["m00"] != 0 else 80
+                setpoint = 80
+
+                proportional = cx - setpoint
+                derivative = proportional - last_proportional
+                integral += proportional
+                last_proportional = proportional
+                power_difference = proportional / 10 + integral / 100000 + derivative * 0.65
+
+                power_difference = max(min(power_difference, maximum), -maximum)
+                Ab.forward()
+
+                if power_difference == 0:
+                    Ab.setPWMA(maximum)
+                    Ab.setPWMB(maximum)
+                elif power_difference < 0:
+                    Ab.setPWMA(maximum + power_difference)
+                    Ab.setPWMB(maximum)
+                else:
+                    Ab.setPWMA(maximum)
+                    Ab.setPWMB(maximum - power_difference)
+
+                cv2.line(frame, (cx, 0), (cx, 720), (255, 0, 0), 1)
+                cv2.line(frame, (0, cy), (1280, cy), (255, 0, 0), 1)
+                cv2.drawContours(frame, contours, -1, (0, 255, 0), 1)
+            else:
+                print("Out of Sight")
+                cx = 160
+
+            cv2.putText(frame, str(proportional), (10, 80), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2)
+            cv2.imshow("path", frame)
+
+            if cv2.waitKey(1) & 0xFF == ord('q'):
+                print('exit...')
+                Ab.stop()
+                rawCapture.release()
+                cv2.destroyAllWindows()
+                break
+
+    except Exception as err:
+        print("An error occurred:", err)
+    finally:
+        Ab.stop()
 
 
-except (KeyboardInterrupt, SystemExit):
-    Ab.stop()
-    pass
-except Exception as ex:
-    print('Python error with no Exception handler:')
-    print('Traceback error:', ex)
-    traceback.print_exc()
-finally:
-    Ab.stop()
-    print("Total number of loops the experiment runs (time.process): ", i)
-    print("The average time (time.process) for a single loop execution is: ", cal_average(loop_time_list))
-    print("Total number of loops the experiment runs (time.time()): ", len(command_recv_time_list))
-    print("The average time (time.time()) for command receive time is: ", cal_average(command_recv_time_list))
-    print("The average time (time.time()) for data transmission time is: ", cal_average(data_transmission_time_list))
-    input()
-    
-    with open("remote_3G.txt", 'a') as f:
-        f.write("Number_of_image: " + str(i) + " looptime: " + str(cal_average(loop_time_list)) + " command_recv_time: " + str(cal_average(command_recv_time_list)) + " data_transmission_time: " + str(cal_average(data_transmission_time_list)) + "\n")
-    
-    sys.exit()
+if __name__ == "__main__":
+    lineTracker()
