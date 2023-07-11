@@ -5,8 +5,8 @@ import cv2
 Ab = AlphaBot2()
 maximum = 13
 integral = 0
-
 last_proportional = 0
+
 rawCapture = cv2.VideoCapture(0)
 time.sleep(2)
 rawCapture.set(3, 160)
@@ -19,15 +19,13 @@ singleloop_time =[]
 
 
 def cal_average(time_list):
-    sum_num = 0
-    for t in time_list:
-        sum_num = sum_num + t
-    avg = sum_num / len(time_list)
-    return avg
+    return sum(time_list) / len(time_list)
+    
 try:
-    while (True):
+    while True:
         t = time.time()
         t2 = time.time()
+        
         ret, frame = rawCapture.read()
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
         blur = cv2.GaussianBlur(gray, (5, 5), 0)
@@ -49,17 +47,19 @@ try:
             proportional = cx - setpoint
             pro = abs(proportional)
             deviation_list.append(pro)
+            
             derivative = proportional - last_proportional
             integral += proportional
             last_proportional = proportional
+            
             power_difference = proportional / 10 + integral / 100000 + derivative * 0.65
             dataprocessingtime= time.time()-t2
             dataprocessing_time.append(dataprocessingtime)
+            
             Ab.forward()
-            if (power_difference > maximum):
-                power_difference = maximum
-            if (power_difference < - maximum):
-                power_difference = - maximum
+
+            power_difference = max(min(power_difference, maximum), -maximum)
+
             # Manoeuvring the alphabot
             if (power_difference < 0):
                 #print ("turn left")
@@ -78,22 +78,23 @@ try:
 
 except (KeyboardInterrupt, SystemExit):
     Ab.stop()
-    print ("Total number image capture and processed: ", len(deviation_list))
-    print ("The average deviation value is : ",cal_average(deviation_list))
-    print ("Total number of loops the experiment runs (time.time()): ", len(singleloop_time))
-    print ("The average time (time.time()) for a single loop execution is: ",cal_average(singleloop_time))
-    print ("Total number of loops the experiment runs (time.time()): ", len(dataprocessing_time))
-    print ("The average time (time.time()) for processing time is: ",cal_average(dataprocessing_time))
-    input ()
-    with open("pi3_ loc_singleloop.txt", 'a') as f:
-        f.write("Singlelopp_time" + " " + str(len(singleloop_time)) + "  " + str(cal_average(singleloop_time)) + "\n")
-        f.close()
+    print("Total number of image captures and processed:", len(deviation_list))
+    print("The average deviation value is:", cal_average(deviation_list))
+    print("Total number of loops the experiment runs (time.time()):", len(singleloop_time))
+    print("The average time (time.time()) for a single loop execution is:", cal_average(singleloop_time))
+    print("Total number of loops the experiment runs (time.time()):", len(dataprocessing_time))
+    print("The average time (time.time()) for processing time is:", cal_average(dataprocessing_time))
+    input()
+    
+    with open("pi3_loc_singleloop.txt", 'a') as f:
+        f.write("Singleloop_time " + str(len(singleloop_time)) + " " + str(cal_average(singleloop_time)) + "\n")
+    
     with open("pi3_loc_pro.txt", 'a') as f:
-        f.write("Data_Processing_time" + "  "+ str(len(dataprocessing_time))  + "   " + str(cal_average(dataprocessing_time))+ "\n")
-        f.close()
+        f.write("Data_Processing_time " + str(len(dataprocessing_time)) + " " + str(cal_average(dataprocessing_time)) + "\n")
+    
     with open("pi3_loc_deviation.txt", 'a') as f:
-        f.write("Data_Processing_time" + "  "+ str(len(deviation_list))  + "   " + str(cal_average(deviation_list))+ "\n")
-        f.close()        
+        f.write("Data_Processing_time " + str(len(deviation_list)) + " " + str(cal_average(deviation_list)) + "\n")
+        
     pass
 
 finally:
