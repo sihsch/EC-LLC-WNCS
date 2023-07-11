@@ -3,10 +3,8 @@ import sys
 import time
 import traceback
 import cv2
-from imutils.video import VideoStream
 import zmq
 import pickle
-
 
 maximum = 13
 Ab = AlphaBot2()
@@ -15,41 +13,26 @@ rawCapture = cv2.VideoCapture(0)
 time.sleep(2)
 rawCapture.set(3, 160)
 rawCapture.set(4, 128)
-deviation = 0
-last_feature = 0
-deviation_list = []
 
+deviation_list = []
 command_recv_time_list = []
 data_processing_time_list = []
-transmition_time_list = []
-looptime_list = []
-
-data_size = []
+transmission_time_list = []
+loop_time_list = []
 
 def cal_average(time_list):
-    sum_num = 0
-    for t in time_list:
-        sum_num = sum_num + t
     if len(time_list) != 0:
-        avg = sum_num / len(time_list)
-        return avg
+        return sum(time_list) / len(time_list)
     else:
         return 0
 
-def summ (data_size):
-    sum_data = 0
-    for t in data_size:
-        sum_data = sum_data + t
-    return sum_data
 context = zmq.Context()
-print("Connecting to hello world server…")
+print("Connecting to hello world server...")
 socket = context.socket(zmq.REQ)
 socket.connect("tcp://192.168.108.153:5554")
 
-
 try:
-    while True:  # send images as stream until Ctrl-C
-
+    while True:
         t = time.time()
         t2 = time.time()
         t3 = time.process_time()
@@ -63,66 +46,40 @@ try:
         if len(contours) > 0:
             c = max(contours, key=cv2.contourArea)
             serialized_dict = pickle.dumps(c)
-            dataprocessingtime = time.time()-t2
-            data_processing_time_list.append(dataprocessingtime)
+            dataprocessing_time = time.time() - t2
+            data_processing_time_list.append(dataprocessing_time)
 
             socket.send(serialized_dict)
             reply_from_server = socket.recv()
 
-            command_recv_time = time.time()-t2
+            command_recv_time = time.time() - t2
             outsidetime = time.process_time() - t3
-            transmition_time = command_recv_time - outsidetime
-            transmition_time_list.append(transmition_time)
+            transmission_time = command_recv_time - outsidetime
+            transmission_time_list.append(transmission_time)
             command_recv_time_list.append(command_recv_time)
-
 
             reply_as_string = reply_from_server.decode('utf-8')
             power_difference = float(reply_as_string)
 
             Ab.forward()
 
-            if (power_difference > maximum):
-                power_difference = maximum
+            power_difference = max(min(power_difference, maximum), -maximum)
 
-            if (power_difference < - maximum):
-                power_difference = - maximum
-
-            # Manoeuvring the alphabot
-            if (power_difference < 0):
-                #print("turn left")
-                Ab.setPWMA(maximum + power_difference )
+            if power_difference < 0:
+                Ab.setPWMA(maximum + power_difference)
                 Ab.setPWMB(maximum)
             else:
-                #print("turn right")
                 Ab.setPWMA(maximum)
-                Ab.setPWMB(maximum - power_difference )
+                Ab.setPWMB(maximum - power_difference)
         else:
             d = 80
             deviation_list.append(abs(d))
-            
-        looptime = time.time() - t
-        looptime_list.append(looptime)
 
+        loop_time = time.time() - t
+        loop_time_list.append(loop_time)
 
 except (KeyboardInterrupt, SystemExit):
     Ab.stop()
-    print ("Total number image capture and processed: ", len(deviation_list))
-    print ("The average deviation value is : ",cal_average(deviation_list))
-    print ("Total number of loops the experiment runs (time.time()): ", len(command_recv_time_list))
-    print ("The average time (time.time()) for a single loop execution is: ",cal_average(command_recv_time_list))
-    print ("Total number of loops the experiment runs (time.time()): ", len(data_processing_time_list))
-    print ("The average time (time.time()) for processing image is: ",cal_average(data_processing_time_list))
-    #print ("The average data size  value is : ",cal_average(data_size))
-    input ()
-    #with open("edgelv1_dev.txt", 'a') as f:
-        #f.write(str(len(deviation_list)) +"  "+str(cal_average(deviation_list))+ "\n")
-        #f.close()
-    with open("edgelv1_3G.txt", 'a') as f:
-        f.write("image: "+ str(len(data_processing_time_list))+" looptime: " + str(cal_average(looptime_list)) +  " command_recv_time: " + str(cal_average(command_recv_time_list)) + " data_processing_time: " +str(cal_average(data_processing_time_list)) + " transmition_time: " +str(cal_average(transmition_time_list))+ " deviation: " +str(cal_average(deviation_list))+ "\n")
-        f.close()
-    #with open("edge_lv1_dev_data_size.txt", 'a') as f:
-        #f.write(str(summ (data_size)) +"  "+str(cal_average(data_size))+ "\n")
-        #f.close()
     pass
 except Exception as ex:
     print('Python error with no Exception handler:')
@@ -130,3 +87,17 @@ except Exception as ex:
     traceback.print_exc()
 finally:
     Ab.stop()
+    print("Total number of image captures and processed:", len(deviation_list))
+    print("The average deviation value is:", cal_average(deviation_list))
+    print("Total number of loops the experiment runs (time.time()):", len(command_recv_time_list))
+    print("The average time (time.time()) for a single loop execution is:", cal_average(command_recv_time_list))
+    print("Total number of loops the experiment runs (time.time()):", len(data_processing_time_list))
+    print("The average time (time.time()) for processing image is:", cal_average(data_processing_time_list))
+    print("Total number of loops the experiment runs (time.time()):", len(transmission_time_list))
+    print("The average time (time.time()) for transmission time is:", cal_average(transmission_time_list))
+    input()
+
+    with open("edgelv1_3G.txt", 'a') as f:
+        f.write("image: " + str(len(data_processing_time_list)) + " looptime: " + str(cal_average(loop_time_list)) + " command_recv_time: " + str(cal_average(command_recv_time_list)) + " data_processing_time: " + str(cal_average(data_processing_time_list)) + " transmission_time: " + str(cal_average(transmission_time_list)) + " deviation: " + str(cal_average(deviation_list)) + "\n")
+
+    sys.exit()
