@@ -3,13 +3,8 @@ import sys
 import time
 import traceback
 import cv2
-from imutils.video import VideoStream
-import imagezmq
-import numpy as np
-import sys
 import pickle
 import zmq
-
 
 rawCapture = cv2.VideoCapture(0)
 time.sleep(2)
@@ -18,7 +13,6 @@ rawCapture.set(4, 128)
 maximum = 13
 Ab = AlphaBot2()
 
-
 command_recv_time_list = []
 data_processing_time_list = []
 data_transmition_time_list = []
@@ -26,17 +20,11 @@ looptime_list = []
 image_serial = []
 i = 0
 
-
 def cal_average(time_list):
-    sum_num = 0
-    for t in time_list:
-        sum_num = sum_num + t
     if len(time_list) != 0:
-        avg = sum_num / len(time_list)
-        return avg
+        return sum(time_list) / len(time_list)
     else:
         return 0
-
 
 context = zmq.Context()
 print("Connecting to hello world server…")
@@ -48,6 +36,7 @@ try:
         t = time.time()
         t2 = time.time()
         t3 = time.process_time()
+        
         ret, image = rawCapture.read()
         i += 1
         serialized_dict = pickle.dumps([image,i])
@@ -57,9 +46,7 @@ try:
         
         c = pickle.loads(reply_from_server)
         index , command = c
-        #with open("trans_time3.txt", 'a') as f:
-            #f.write(str(index) + "   " + str(trans_time)+ "\n")
-            #f.close()
+
 
         command_recv_time = time.time()-t
         outsidetime = time.process_time() - t3
@@ -67,23 +54,16 @@ try:
         data_transmition_time_list.append(transmition_time)
         command_recv_time_list.append(command_recv_time)
 
-        #reply_as_string = reply_from_server.decode('utf-8')  # decode from bytes to Python 3 string
         power_difference = float(command)
 
         Ab.forward()
-        if (power_difference > maximum):
-            power_difference = maximum
-
-        if (power_difference < - maximum):
-            power_difference = - maximum
+        power_difference = max(min(power_difference, maximum), -maximum)
 
         # Manoeuvring the alphabot
         if (power_difference < 0):
-            #print("turn left")
             Ab.setPWMA(maximum + power_difference )
             Ab.setPWMB(maximum)
         else:
-            #print("turn right")
             Ab.setPWMA(maximum)
             Ab.setPWMB(maximum - power_difference )
             
@@ -94,20 +74,21 @@ try:
 
 except (KeyboardInterrupt, SystemExit):
     Ab.stop()
-    pass  # Ctrl-C was pressed to end program
+    pass
 except Exception as ex:
     print('Python error with no Exception handler:')
     print('Traceback error:', ex)
     traceback.print_exc()
 finally:
     Ab.stop()
-    print ("Total number of loops the experiment runs (time.process): ", i)
-    print ("The average time (time.process) for a single loop execution is: ",cal_average(looptime_list))
-    print ("Total number of loops the experiment runs (time.time()): ", len(command_recv_time_list))
-    print ("The average time (time.time()) for command recv time is: ",cal_average(command_recv_time_list))
-    print ("The average time (time.time()) for data transmition time is: ",cal_average(data_transmition_time_list))
-    input ()
+    print("Total number of loops the experiment runs (time.process): ", i)
+    print("The average time (time.process) for a single loop execution is: ", cal_average(loop_time_list))
+    print("Total number of loops the experiment runs (time.time()): ", len(command_recv_time_list))
+    print("The average time (time.time()) for command receive time is: ", cal_average(command_recv_time_list))
+    print("The average time (time.time()) for data transmission time is: ", cal_average(data_transmission_time_list))
+    input()
+    
     with open("remote_3G.txt", 'a') as f:
-        f.write("Number_of_image: " + str(i)+ " looptime: " + str(cal_average(looptime_list)) + " command_recv_time: " + str(cal_average(command_recv_time_list)) + " data_transmition_time: " + str(cal_average(data_transmition_time_list))+ "\n")
-        f.close()
+        f.write("Number_of_image: " + str(i) + " looptime: " + str(cal_average(loop_time_list)) + " command_recv_time: " + str(cal_average(command_recv_time_list)) + " data_transmission_time: " + str(cal_average(data_transmission_time_list)) + "\n")
+    
     sys.exit()
