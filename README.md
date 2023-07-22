@@ -2,6 +2,8 @@
 Last updated: July 10, 2023
 # Edge-Computing-Enabled Low-Latency Communication for a Wireless Networked Control System
 
+## Official implementation for the paper ["Edge-Computing-Enabled Low-Latency Communication for a Wireless Networked Control System"](https://www.mdpi.com/2399798)
+
 <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-yellow.svg"></a>  
 
 ## Description 
@@ -215,7 +217,18 @@ pip install -r requirements.txt
 If you use this code for your research, please cite:
 
 ```
-The paper is currently under review
+@Article{electronics12143181,
+AUTHOR = {Mtowe, Daniel Poul and Kim, Dong Min},
+TITLE = {Edge-Computing-Enabled Low-Latency Communication for a Wireless Networked Control System},
+JOURNAL = {Electronics},
+VOLUME = {12},
+YEAR = {2023},
+NUMBER = {14},
+ARTICLE-NUMBER = {3181},
+URL = {https://www.mdpi.com/2079-9292/12/14/3181},
+ISSN = {2079-9292},
+DOI = {10.3390/electronics12143181}
+}
 ```
 
 ## Contact
