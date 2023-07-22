@@ -1,6 +1,6 @@
 
 Last updated: July 10, 2023
-# Autonomous Mobile Robot controlled by Edge Computing connected by technologies that lower communication traffic
+# Edge-Computing-Enabled Low-Latency Communication for a Wireless Networked Control System
 
 <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-yellow.svg"></a>  
 
