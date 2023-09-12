@@ -36,7 +36,7 @@ More detalits about the Alphabot2 can be obtainet on the [Link here](https://www
 Type the following command in terminal.
 
 ```
-$ sudo raspi-config
+sudo raspi-config
 ```
 
 1. Choose Interfacing Options -> Camera -> Yes -> Yes -> OK
