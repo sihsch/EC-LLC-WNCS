@@ -46,9 +46,9 @@ sudo raspi-config
 5. Choose Interfacing Options -> SERIAL -> No -> Yes -> OK
 
 ```
-$ sudo apt update
-$ sudo apt install fonts-wqy-zenhei
-$ sudo pip install rpi_ws281x
+sudo apt update
+sudo apt install fonts-wqy-zenhei
+sudo pip install rpi_ws281x
 ```
 
 ### Step #3: Virtual Environments on the Raspberry Pi
@@ -127,8 +127,8 @@ Before installing OpenCV 4.5 on your Raspberry 64-bit OS, you should first check
 You also need to check your C++ compiler version with the command $gcc -v$. It must also be an aarch64-linux-gnu version.
 
 ```
-$ uname -a
-$ gcc -v
+uname -a
+gcc -v
 ```
 
 #### Step #1: Expand filesystem on your Raspberry Pi
@@ -137,10 +137,10 @@ OpenCV needs a lot of memory to compile. The latest versions want to see a minim
 ```
 # edit the swap configuration by changing CONF_MAXSWAP as shown below
 # CONF_MAXSWAP = 4096 
-$ sudo nano /sbin/dphys-swapfile
-$ sudo nano /etc/dphys-swapfile
+sudo nano /sbin/dphys-swapfile
+sudo nano /etc/dphys-swapfile
 # reboot
-$ sudo reboot
+sudo reboot
 ```
 
 #### Step #2: Installation script
@@ -155,13 +155,13 @@ sudo chmod 755 ./OpenCV-4-5-5.sh
 That is resetting the swap space back to its original 100 Mbyte. Flash memory can only write a limited number of cycles. In the end, it will wear your SD card out. It is therefore wise to keep memory swapping to a minimum. Besides, it also slows down your application.
 
 ```
-$ sudo nano /etc/dphys-swapfile
+sudo nano /etc/dphys-swapfile
 set CONF_SWAPSIZE=100 with the Nano text editor
 
-$ cd ~
-$ rm opencv.zip
-$ rm opencv_contrib.zip
-$ sudo reboot
+cd ~
+rm opencv.zip
+rm opencv_contrib.zip
+sudo reboot
 ```
 
 If you have installed OpenCV in a virtual environment, you need to make a symbolic link to the library. Without this link, OpenCV will not be found by python and the import fails. You can skip these steps if you have installed OpenCV without a virtual environment.
@@ -169,9 +169,9 @@ If you have installed OpenCV in a virtual environment, you need to make a symbol
 
 ```
 
-$ cd ~/.virtualenvs/cv450/lib/python3.9/site-packages
-$ ln -s /usr/local/lib/python3.9/site-packages/cv2/python-3.9/cv2.cpython-39m-arm-linux-gnueabihf.so
-$ cd ~
+cd ~/.virtualenvs/cv450/lib/python3.9/site-packages
+ln -s /usr/local/lib/python3.9/site-packages/cv2/python-3.9/cv2.cpython-39m-arm-linux-gnueabihf.so
+cd ~
 ```
 
 ### Step #5: Download the EC-LLC-WNCS project
