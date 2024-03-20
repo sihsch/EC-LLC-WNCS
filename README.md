@@ -51,144 +51,22 @@ sudo apt install fonts-wqy-zenhei
 sudo pip install rpi_ws281x
 ```
 
-### Step #3: Virtual Environments on the Raspberry Pi
 
-In the hidden file .profile, set the value for VIRTUALENVWRAPPER_PYTHON
-
-```
-sudo nano ~/.profile
-```
-
-At the bottom of the file, type in the following line:
-```
-VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3.X
-```
-
-Save and exit nano. Now run .profile by typing:
-```
-source ~/.profile
-```
-
-Now install virtualenv and virtualenvwrapper
-
-```
-sudo pip3 install virtualenv
-sudo pip3 install virtualenvwrapper
-```
-
-edit the .profile file again to set 1) the variable WORKON_HOME to the path of the directory .virtualenvs which contains our virtual environments and 2) make known the location of the shell file, virualenvwrapper.sh
-
-```
-sudo nano ~/.profile
-```
-
-Type the following two lines at the bottom:
-
-```
-export WORKON_HOME=$HOME/.virtualenvs
-source /usr/local/bin/virtualenvwrapper.sh
-```
-
-Save and exit nano. Run .profile by typing:
-
-```
-source ~/.profile
-```
-
-The command mkvirtualenv can now be used to create python virtual environments as shown below
-
-```
-mkvirtualenv whatever -p /usr/bin/python3.X
-```
-VEs are stored in the hidden directory .virtualenvs located at your home path (~). The directory “whatever” is a subdirectory of .virtualenvs
-
-To activate the VE “whatever” in any Terminal window enter:
-
-```
-source ~/.profile
-workon whatever
-```
-
-Your prompt now begins with (whatever). This means you are now working in the VE named “whatever”. All packages installed using pip3 (when the whatever VE is active) are placed in the site-packages directory located at:
-~/.virtualenvs/whatever/lib/python3.X/site-packages
-
-### Step #4 Install OpenCV 4.5.5 on Raspberry Pi 3 or 4 (Building from source)
-This article helps you install OpenCV 4.5.5 on Raspberry Pi 3 or 4 with a 64-bit operation system.
-
-The difference is if you build from source, then you can enable or disable some functionalities, for example, you can build OpenCV with opencv_contrib module, Or
-you can build OpenCV with Deep-Learning-Inference-Engine-backend, Or CUDA, Or Qt, Or with GStreamer, Or with tesseract-ocr and many other configurations which you
-can change or enable/disable. But if you do not need the extra functionality, then you can directly install the pre-built library and use it.
-
-Assumptions
-* You already own Raspberry Pi 3 or 4 with a 64-bit operation system installed.
-
-### Version check.
-Before installing OpenCV 4.5 on your Raspberry 64-bit OS, you should first check your version. Run the command $uname -a$ and verify your version.
-You also need to check your C++ compiler version with the command $gcc -v$. It must also be an aarch64-linux-gnu version.
-
-```
-uname -a
-gcc -v
-```
-
-#### Step #1: Expand filesystem on your Raspberry Pi
-OpenCV needs a lot of memory to compile. The latest versions want to see a minimum of 6.5 GB of memory before building. But swap space is limited to 2048 MByte by default. To exceed this 2048 MByte limit, you need to increase this maximum in the /sbin/dphys-swapfile. 
-
-```
-# edit the swap configuration by changing CONF_MAXSWAP as shown below
-# CONF_MAXSWAP = 4096 
-sudo nano /sbin/dphys-swapfile
-sudo nano /etc/dphys-swapfile
-# reboot
-sudo reboot
-```
-
-#### Step #2: Installation script
-we created an installation script that executes all commands at once. It starts with the installation of the dependencies and ends with the ldconfig.
-```
-wget https://github.com/sihsch/EC-LLC-WNCS/OpenCV-4-5-5.sh
-sudo chmod 755 ./OpenCV-4-5-5.sh
-./OpenCV-4-5-5.sh
-```
-
-#### Step #3: Resizing dphys-swap 
-That is resetting the swap space back to its original 100 Mbyte. Flash memory can only write a limited number of cycles. In the end, it will wear your SD card out. It is therefore wise to keep memory swapping to a minimum. Besides, it also slows down your application.
-
-```
-sudo nano /etc/dphys-swapfile
-set CONF_SWAPSIZE=100 with the Nano text editor
-
-cd ~
-rm opencv.zip
-rm opencv_contrib.zip
-sudo reboot
-```
-
-If you have installed OpenCV in a virtual environment, you need to make a symbolic link to the library. Without this link, OpenCV will not be found by python and the import fails. You can skip these steps if you have installed OpenCV without a virtual environment.
-
-
-```
-
-cd ~/.virtualenvs/cv450/lib/python3.9/site-packages
-ln -s /usr/local/lib/python3.9/site-packages/cv2/python-3.9/cv2.cpython-39m-arm-linux-gnueabihf.so
-cd ~
-```
-
-### Step #5: Download the EC-LLC-WNCS project
+### Step #3: Download the EC-LLC-WNCS project
 Download Project from our repository [link to repo](https://github.com/sihsch/EC-LLC-WNCS/archive/refs/heads/main.zip) using command:
  
 ```
 git clone https://github.com/sihsch/EC-LLC-WNCS
 
 ```
-### Step #6: Installing the requarments for the lineFollower project 
+### Step #4: Installing the requarments for the lineFollower project 
 We assume you have followed all the procedures from the biggining till here. Now we will install the necessary library to enable run our project
 
 ```
 pip install -r requirements.txt
 ```
 
-#### Step #7: How to Run the Source Code
+#### Step #5: How to Run the Source Code
 
 | Syntax      | Description (Local side) |
 | ----------- | ----------- |
