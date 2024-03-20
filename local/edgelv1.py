@@ -5,6 +5,13 @@ import traceback
 import cv2
 import zmq
 import pickle
+import argparse
+
+
+ap = argparse.ArgumentParser()
+ap.add_argument("-ip", "--InternetProtocol", required=True,
+	help="IP address of the server is required")
+args = vars(ap.parse_args())
 
 maximum = 13
 Ab = AlphaBot2()
@@ -29,7 +36,8 @@ def cal_average(time_list):
 context = zmq.Context()
 print("Connecting to hello world server...")
 socket = context.socket(zmq.REQ)
-socket.connect("tcp://192.168.108.153:5554")
+socket.connect("tcp://{}:5554".format(args['ip']))
+#socket.connect("tcp://192.168.108.153:5554")
 
 try:
     while True:

@@ -1,12 +1,9 @@
 from AlphaBot2 import AlphaBot2
 import time
 import cv2
-import os
-import csv
 
 
 def lineTracker():
-# def lineTracker(moveFunc):
     Ab = AlphaBot2()
     x_value = 0
     try:
@@ -77,7 +74,7 @@ def lineTracker():
                     #print ("turn right")
                     Ab.setPWMA(maximum)
                     Ab.setPWMB(maximum - power_difference)
-
+                print ("On Sight")
                 #print('showing contoure ...')
                 cv2.line(frame, (cx, 0), (cx, 720), (255, 0, 0), 1)
                 cv2.line(frame, (0, cy), (1280, cy), (255, 0, 0), 1)

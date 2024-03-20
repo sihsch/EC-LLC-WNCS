@@ -24,7 +24,6 @@ def cal_average(time_list):
 try:
     while True:
         t = time.time()
-        t2 = time.time()
         
         ret, frame = rawCapture.read()
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
@@ -53,7 +52,7 @@ try:
             last_proportional = proportional
             
             power_difference = proportional / 10 + integral / 100000 + derivative * 0.65
-            dataprocessingtime= time.time()-t2
+            dataprocessingtime= time.time()-t
             dataprocessing_time.append(dataprocessingtime)
             
             Ab.forward()
@@ -86,13 +85,13 @@ except (KeyboardInterrupt, SystemExit):
     print("The average time (time.time()) for processing time is:", cal_average(dataprocessing_time))
     input()
     
-    with open("pi3_loc_singleloop.txt", 'a') as f:
+    with open("pi3_Floc_singleloop.txt", 'a') as f:
         f.write("Singleloop_time " + str(len(singleloop_time)) + " " + str(cal_average(singleloop_time)) + "\n")
     
-    with open("pi3_loc_pro.txt", 'a') as f:
+    with open("pi3_Floc_pro.txt", 'a') as f:
         f.write("Data_Processing_time " + str(len(dataprocessing_time)) + " " + str(cal_average(dataprocessing_time)) + "\n")
     
-    with open("pi3_loc_deviation.txt", 'a') as f:
+    with open("pi3_Floc_deviation.txt", 'a') as f:
         f.write("Data_Processing_time " + str(len(deviation_list)) + " " + str(cal_average(deviation_list)) + "\n")
         
     pass

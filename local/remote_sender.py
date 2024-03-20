@@ -1,77 +1,114 @@
 from AlphaBot2 import AlphaBot2
+import sys
 import time
+import traceback
 import cv2
+from imutils.video import VideoStream
+import imagezmq
+import numpy as np
+import sys
+import pickle
+import zmq
+import argparse
 
 
-def lineTracker():
-    Ab = AlphaBot2()
+ap = argparse.ArgumentParser()
+ap.add_argument("-ip", "--InternetProtocol", required=True,
+	help="IP address of the server is required")
+args = vars(ap.parse_args())
 
-    maximum = 11
-    integral = 0
-    last_proportional = 0
-
-    rawCapture = cv2.VideoCapture(0)
-    time.sleep(2)
-    rawCapture.set(3, 160)
-    rawCapture.set(4, 128)
-
-    try:
-        while True:
-            ret, frame = rawCapture.read()
-            gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-            blur = cv2.GaussianBlur(gray, (5, 5), 0)
-            ret, thresh = cv2.threshold(blur, 60, 255, cv2.THRESH_BINARY_INV)
-
-            contours, hierarchy = cv2.findContours(thresh.copy(), 1, cv2.CHAIN_APPROX_NONE)
-
-            if len(contours) > 0:
-                c = max(contours, key=cv2.contourArea)
-                M = cv2.moments(c)
-                cx = int(M["m10"] / M["m00"]) if M["m00"] != 0 else 160
-                cy = int(M["m01"] / M["m00"]) if M["m00"] != 0 else 80
-                setpoint = 80
-
-                proportional = cx - setpoint
-                derivative = proportional - last_proportional
-                integral += proportional
-                last_proportional = proportional
-                power_difference = proportional / 10 + integral / 100000 + derivative * 0.65
-
-                power_difference = max(min(power_difference, maximum), -maximum)
-                Ab.forward()
-
-                if power_difference == 0:
-                    Ab.setPWMA(maximum)
-                    Ab.setPWMB(maximum)
-                elif power_difference < 0:
-                    Ab.setPWMA(maximum + power_difference)
-                    Ab.setPWMB(maximum)
-                else:
-                    Ab.setPWMA(maximum)
-                    Ab.setPWMB(maximum - power_difference)
-
-                cv2.line(frame, (cx, 0), (cx, 720), (255, 0, 0), 1)
-                cv2.line(frame, (0, cy), (1280, cy), (255, 0, 0), 1)
-                cv2.drawContours(frame, contours, -1, (0, 255, 0), 1)
-            else:
-                print("Out of Sight")
-                cx = 160
-
-            cv2.putText(frame, str(proportional), (10, 80), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2)
-            cv2.imshow("path", frame)
-
-            if cv2.waitKey(1) & 0xFF == ord('q'):
-                print('exit...')
-                Ab.stop()
-                rawCapture.release()
-                cv2.destroyAllWindows()
-                break
-
-    except Exception as err:
-        print("An error occurred:", err)
-    finally:
-        Ab.stop()
+rawCapture = cv2.VideoCapture(0)
+time.sleep(2)
+rawCapture.set(3, 160)
+rawCapture.set(4, 128)
+maximum = 13
+Ab = AlphaBot2()
 
 
-if __name__ == "__main__":
-    lineTracker()
+command_recv_time_list = []
+data_processing_time_list = []
+data_transmition_time_list = []
+looptime_list = []
+image_serial = []
+i = 0
+
+
+def cal_average(time_list):
+    if len(time_list) == 0:
+        return 0  
+    else:
+        return sum(time_list) / len(time_list)
+
+
+
+context = zmq.Context()
+print("Connecting to hello world server…")
+socket = context.socket(zmq.REQ)
+#socket.connect("tcp://192.168.108.153:5554")
+socket.connect("tcp://{}:5554".format(args['ip']))
+
+try:
+    while True:
+        t = time.time()
+        t2 = time.process_time()
+        ret, image = rawCapture.read()
+        i += 1
+        serialized_dict = pickle.dumps([image,i])
+        socket.send(serialized_dict)
+        reply_from_server = socket.recv()
+        command_recv_time = time.time()-t
+
+        c = pickle.loads(reply_from_server)
+        index , command = c
+
+
+        command_recv_time = time.time()-t
+        outsidetime = time.process_time() - t2
+        transmition_time = command_recv_time - outsidetime
+        data_transmition_time_list.append(transmition_time)
+        command_recv_time_list.append(command_recv_time)
+
+        #reply_as_string = reply_from_server.decode('utf-8')  # decode from bytes to Python 3 string
+        power_difference = float(command)
+
+        Ab.forward()
+        if (power_difference > maximum):
+            power_difference = maximum
+
+        if (power_difference < - maximum):
+            power_difference = - maximum
+
+        # Manoeuvring the alphabot
+        if (power_difference < 0):
+            #print("turn left")
+            Ab.setPWMA(maximum + power_difference )
+            Ab.setPWMB(maximum)
+        else:
+            #print("turn right")
+            Ab.setPWMA(maximum)
+            Ab.setPWMB(maximum - power_difference )
+
+
+        looptime = time.time()-t
+        looptime_list.append(looptime)
+
+
+except (KeyboardInterrupt, SystemExit):
+    Ab.stop()
+    pass  # Ctrl-C was pressed to end program
+except Exception as ex:
+    print('Python error with no Exception handler:')
+    print('Traceback error:', ex)
+    traceback.print_exc()
+finally:
+    Ab.stop()
+    print ("Total number of loops the experiment runs (time.process): ", i)
+    print ("The average time (time.process) for a single loop execution is: ",cal_average(looptime_list))
+    print ("Total number of loops the experiment runs (time.time()): ", len(command_recv_time_list))
+    print ("The average time (time.time()) for command recv time is: ",cal_average(command_recv_time_list))
+    print ("The average time (time.time()) for data transmition time is: ",cal_average(data_transmition_time_list))
+    input ()
+    with open("remote_3G.txt", 'a') as f:
+        f.write("Number_of_image: " + str(i)+ " looptime: " + str(cal_average(looptime_list)) + " command_recv_time: " + str(cal_average(command_recv_time_list)) + " data_transmition_time: " + str(cal_average(data_transmition_time_list))+ "\n")
+        f.close()
+    sys.exit()

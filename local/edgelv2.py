@@ -5,6 +5,13 @@ import traceback
 import cv2
 import zmq
 import pickle
+import argparse
+
+
+ap = argparse.ArgumentParser()
+ap.add_argument("-ip", "--InternetProtocol", required=True,
+	help="IP address of the server is required")
+args = vars(ap.parse_args())
 
 maximum = 13
 Ab = AlphaBot2()
@@ -29,13 +36,14 @@ def cal_average(time_list):
 context = zmq.Context()
 print("Connecting to server...")
 socket = context.socket(zmq.REQ)
-socket.connect("tcp://192.168.108.153:5554")
+socket.connect("tcp://{}:5554".format(args['ip']))
+
+#socket.connect("tcp://192.168.108.153:5554")
 
 try:
     while True:
         t = time.time()
-        t2 = time.time()
-        t3 = time.process_time()
+        t2 = time.process_time()
 
         ret, image = rawCapture.read()
         gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
@@ -53,8 +61,8 @@ try:
             socket.send(serialized_dict)
             reply_from_server = socket.recv()
 
-            command_recv_time = time.time() - t2
-            outsidetime = time.process_time() - t3
+            command_recv_time = time.time() - t
+            outsidetime = time.process_time() - t2
             transmission_time = command_recv_time - outsidetime
             transmission_time_list.append(transmission_time)
             command_recv_time_list.append(command_recv_time)
