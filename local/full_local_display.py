@@ -1,12 +1,8 @@
 from AlphaBot2 import AlphaBot2
 import time
 import cv2
-import matplotlib
-matplotlib.use('Agg')
-import matplotlib.pyplot as plt
 import os
 import csv
-from pathlib import Path
 
 
 def lineTracker():
