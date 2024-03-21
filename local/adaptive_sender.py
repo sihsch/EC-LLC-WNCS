@@ -20,8 +20,10 @@ time_list = []
 
 
 def cal_average(time_list):
-    return sum(time_list) / len(time_list)
-
+    if len(time_list) == 0:
+        return 0  
+    else:
+        return sum(time_list) / len(time_list)
 
 
 rawCapture = cv2.VideoCapture(0)
