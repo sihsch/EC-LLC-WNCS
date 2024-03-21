@@ -21,14 +21,11 @@ looptime_list = []
 
 
 def cal_average(processing_time):
-    sum_num = 0
-    for t in processing_time:
-        sum_num = sum_num + t
-    if len(processing_time) != 0:
-        avg = sum_num / len(processing_time)
-        return avg
+    if len(processing_time) == 0:
+        return 0  
     else:
-        return 0
+        return sum(processing_time) / len(processing_time)
+
 
 try:
     with socket.bind("tcp://*:5554"):
