@@ -3,7 +3,6 @@ import sys
 import time
 import traceback
 import cv2
-#from imutils.video import VideoStream
 import imagezmq
 import numpy as np
 import sys
