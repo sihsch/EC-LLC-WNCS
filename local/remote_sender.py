@@ -3,7 +3,7 @@ import sys
 import time
 import traceback
 import cv2
-from imutils.video import VideoStream
+#from imutils.video import VideoStream
 import imagezmq
 import numpy as np
 import sys
@@ -13,7 +13,7 @@ import argparse
 
 
 ap = argparse.ArgumentParser()
-ap.add_argument("-ip", "--InternetProtocol", required=True,
+ap.add_argument("-ip", required=True,
 	help="IP address of the server is required")
 args = vars(ap.parse_args())
 
@@ -47,6 +47,10 @@ socket = context.socket(zmq.REQ)
 #socket.connect("tcp://192.168.108.153:5554")
 socket.connect("tcp://{}:5554".format(args['ip']))
 
+print (type("tcp://{}:5554".format(args['ip'])))
+
+#exit()
+
 try:
     while True:
         t = time.time()
@@ -55,6 +59,7 @@ try:
         i += 1
         serialized_dict = pickle.dumps([image,i])
         socket.send(serialized_dict)
+        print ("sending")
         reply_from_server = socket.recv()
         command_recv_time = time.time()-t
 
