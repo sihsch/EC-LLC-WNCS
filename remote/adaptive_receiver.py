@@ -55,13 +55,16 @@ except (KeyboardInterrupt, SystemExit):
     print ("Total number of loops the experiment runs (time.time()): ", len(time_list))
     print ("The average time (time.time()) for a single loop execution is: ",cal_average(time_list))
     print ("Number of features received: ", Feature_count)
+
     pass
 except Exception as ex:
     print('Python error with no Exception handler:')
     print('Traceback error:', ex)
     #traceback.print_exc()
 finally:
-    print()
+    print ("Total number of loops the experiment runs (time.time()): ", len(time_list))
+    print ("The average time (time.time()) for a single loop execution is: ",cal_average(time_list))
+    print ("Number of features received: ", Feature_count)
     input()
     with open("serve_ad_pro_3G.txt", 'a') as f:
         f.write(str(Feature_count)+ " " +str(cal_average(time_list))+ "\n")

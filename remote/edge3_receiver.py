@@ -60,7 +60,8 @@ except (KeyboardInterrupt, SystemExit):
     print ("Total number of loops the experiment runs (time.time()): ", len(processing_time_list))
     print ("The average time (time.time()) for a single loop execution is: ",cal_average(processing_time_list)) 
     print ("Number of features received: ", Feature_count)
-    #pass
+    
+    pass
     
 except Exception as ex:
     print('Python error with no Exception handler:')
