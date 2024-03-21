@@ -9,7 +9,7 @@ import argparse
 
 
 ap = argparse.ArgumentParser()
-ap.add_argument("-ip", "--InternetProtocol", required=True,
+ap.add_argument("-ip", required=True,
 	help="IP address of the server is required")
 args = vars(ap.parse_args())
 
