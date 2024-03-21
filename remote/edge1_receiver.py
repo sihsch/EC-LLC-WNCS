@@ -18,14 +18,10 @@ processing_time_list = []
 looptime_list =[]
 
 def cal_average(time_list):
-    sum_num = 0
-    for t in time_list:
-        sum_num = sum_num + t
-    if len(time_list) != 0:
-        avg = sum_num / len(time_list)
-        return avg
+    if len(time_list) == 0:
+        return 0  
     else:
-        return 0
+        return sum(time_list) / len(time_list)
         
         
 try:
