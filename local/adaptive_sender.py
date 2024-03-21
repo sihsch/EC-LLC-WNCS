@@ -18,6 +18,12 @@ Ab = AlphaBot2()
 deviation_list = []
 time_list = []
 
+
+def cal_average(time_list):
+    return sum(time_list) / len(time_list)
+
+
+
 rawCapture = cv2.VideoCapture(0)
 time.sleep(2)
 rawCapture.set(3, 160)
@@ -35,6 +41,7 @@ image_captured = 0
 image_sent = 0
 image_skipped = 0
 threshold = 5
+last_feature = 0
 
 try:
     while True:
@@ -58,8 +65,8 @@ try:
 
             setpoint = 80
             deviation = abs(cx - setpoint)
-            feature_deviation = abs(cx - Ab.get_last_feature())
-            Ab.set_last_feature(cx)
+            feature_deviation = abs(cx - last_feature)
+            last_feature = cx
 
             deviation_list.append(deviation)
 
@@ -92,13 +99,16 @@ try:
 
 except (KeyboardInterrupt, SystemExit):
     Ab.stop()
-    print("threshold:", threshold)
-    print("image_captured:", image_captured)
-    print("image_sent:", image_sent)
-    print("image_skipped:", image_skipped)
-    print("deviation:", sum(deviation_list) / len(deviation_list))
-    input()
+    print ("threshold: " + str(threshold) + "  image_captured: "+ str(image_captured)+ "  image_sent: "+ str(image_sent)+ "  image_skipped: "+ str(image_skipped)+ "  deviation: " + str(cal_average(deviation_list)))
+    input ()
     with open("ad2_5G_Pro_tm.txt", 'a') as f:
-        f.write("threshold: " + str(threshold) + "  image_captured: " + str(image_captured) + "  image_sent: " + str(image_sent) + "  image_skipped: " + str(image_skipped) + "  deviation: " + str(sum(deviation_list) / len(deviation_list)) + "\n")
-
+        f.write(str(threshold) +"  image_captured: "+ str(image_captured)+ "  image_sent: "+ str(image_sent)+ "  image_skipped: "+ str(image_skipped)+ "  deviation: " + str(cal_average(deviation_list))+"\n")
+        f.close()
+    pass
+except Exception as ex:
+    print('Python error with no Exception handler:')
+    print('Traceback error:', ex)
+    traceback.print_exc()
+finally:
+    Ab.stop()
     sys.exit()
