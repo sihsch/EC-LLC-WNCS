@@ -1,4 +1,4 @@
+imagezmq==1.1.1
+imutils==0.5.4
 opencv-python==4.5.3.56
-imutils
-imagezmq
-pyzmq
+pyzmq==25.1.2
