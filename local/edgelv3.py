@@ -9,7 +9,7 @@ import argparse
 
 
 ap = argparse.ArgumentParser()
-ap.add_argument("-ip", "--InternetProtocol", required=True,
+ap.add_argument("-ip", required=True,
 	help="IP address of the server is required")
 args = vars(ap.parse_args())
 
@@ -21,6 +21,10 @@ time.sleep(2)
 rawCapture.set(3, 160)
 rawCapture.set(4, 120)
 
+
+data_processing_time_lv1 = []
+data_processing_time_lv2 = []
+data_processing_time_lv3 = []
 deviation_list = []
 command_recv_time_list = []
 data_processing_time_list = []
