@@ -91,12 +91,6 @@ finally:
      print ("Total number of loops the experiment runs (time.time()): ", len(processing_time_list))
      print ("The average time (time.time()) for a single loop execution is: ",cal_average(processing_time_list))
      input()
-     #with open("server_dev_remote.txt", 'a') as f:
-         #f.write(str(len(deviation_list)) + " " + str(cal_average(deviation_list)) + "\n")
-         #f.close()
-     #with open("server_remote.txt", 'a') as f:
-         #f.write("processing_time" + " " + str(len(processing_time)) + " " + str(cal_average(processing_time)) + "\n")
-         #f.close() 
          
      with open("remote_3G.txt", 'a') as f:
          f.write("received_img:  " + str(image_count) + " deviation:  " + str(cal_average(deviation_list)) + " processing_time:  " + str(cal_average(processing_time_list))+ " looptime_time:  " + str(cal_average(looptime_list))+ "\n")

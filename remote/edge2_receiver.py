@@ -98,13 +98,7 @@ finally:
     print ("Total number of loops the experiment runs (time.time()): ", len(processing_time_list))
     print ("The average time (time.time()) for a single loop execution is: ",cal_average(processing_time_list))
     input()
-    #with open("edge2_dev_2.txt", 'a') as f:
-        #f.write(str(len(Inside_recvtime)) + "   " + str(cal_average(Inside_recvtime))+ "\n")
-        #f.close()
-    #with open("edge2_Pro_2.txt", 'a') as f:
-        #f.write(str(len(time_list)) +"   " + str(cal_average(time_list)) + "\n")
-        #f.close()
-        
+       
     with open("Edge_lv2_3G.txt", 'a') as f:
         f.write("received_img:  " + str(Feature_count) + " deviation:  " + str(cal_average(deviation_list)) + " processing_time:  " + str(cal_average(processing_time_list))+ " looptime_time:  " + str(cal_average(looptime_list))+ "\n")
         f.close()        

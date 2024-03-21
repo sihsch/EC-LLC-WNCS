@@ -95,7 +95,4 @@ finally:
     with open("Edge_lv1_3G.txt", 'a') as f:
         f.write("received_img:  " + str(Feature_count) + " deviation:  " + str(cal_average(deviation_list)) + " processing_time:  " + str(cal_average(processing_time_list))+ " looptime_time:  " + str(cal_average(looptime_list))+ "\n")
         f.close()
-    #with open("Edge_lv1_pro_2.txt", 'a') as f:
-        #f.write(str(len(time_list)) + "   " + str(cal_average(time_list)) + "\n")
-        #f.close()
     sys.exit()
