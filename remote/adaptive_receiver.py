@@ -16,11 +16,10 @@ time_list = []
 
 
 def cal_average(time_list):
-    sum_num = 0
-    for t in time_list:
-        sum_num = sum_num + t
-    avg = sum_num / len(time_list)
-    return avg
+    if len(time_list) == 0:
+        return 0  
+    else:
+        return sum(time_list) / len(time_list)
 
 try:
     with socket.bind("tcp://*:5554"):
