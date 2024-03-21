@@ -3,6 +3,13 @@ import sys
 import time
 import cv2
 import zmq
+import argparse
+
+
+ap = argparse.ArgumentParser()
+ap.add_argument("-ip", required=True,
+	help="IP address of the server is required")
+args = vars(ap.parse_args())
 
 
 maximum = 13
@@ -16,10 +23,13 @@ time.sleep(2)
 rawCapture.set(3, 160)
 rawCapture.set(4, 128)
 
+
 context = zmq.Context()
 print("Connecting to server...")
 socket = context.socket(zmq.REQ)
-socket.connect("tcp://192.168.108.153:5554")
+socket.connect("tcp://{}:5554".format(args['ip']))
+#socket.connect("tcp://192.168.108.153:5554")
+
 
 image_captured = 0
 image_sent = 0
