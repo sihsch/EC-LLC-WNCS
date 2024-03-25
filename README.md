@@ -60,9 +60,10 @@ git clone https://github.com/sihsch/EC-LLC-WNCS
 
 ```
 ### Step #4: Installing the requarments for the lineFollower project 
-We assume you have followed all the procedures from the biggining till here. Now we will install the necessary library to enable run our project
+We assume you have followed all the procedures from the biggining till here. Now we will install the necessary library to enable run our project. Navigate into the cloned repository directory using the `cd` command:
 
 ```
+cd EC-LLC-WNCS\local
 pip install -r requirements.txt
 ```
 
@@ -90,6 +91,10 @@ pip install -r requirements.txt
 | edge2_receiver.py   | Receive semi-processed information from (edgelv2.py), finalize the processing, and return a control command       |
 | edge3_receiver.py   | Receive semi-processed information from (edgelv3.py), finalize the processing, and return a control command       |
 | adaptive_receiver.py| Receive from (adaptive_sender.py) communication       |
+
+
+### How to run the code
+
 
 ## Citation
 If you use this code for your research, please cite:
