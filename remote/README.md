@@ -1,5 +1,5 @@
 
-Last updated: July 10, 2023
+Last updated: March 25, 2024
 
 
 #  Remote Side Architecture
@@ -15,8 +15,9 @@ Before proceeding, ensure that the following prerequisites are met:
 2. **Server Environment:** Make sure you have a server or a machine designated for running the server-side code. This server should have the necessary network connectivity and permissions to communicate with the remote devices.
 
 3. **Required Software:** The server-side code relies on specific software dependencies. Ensure the following software is installed:
-   - [Python](https://www.python.org/) 
-   - [OpenCV ]
+```
+pip install -r requirements.txt
+```
 
 ## Server Setup Instructions
 
