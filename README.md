@@ -67,42 +67,6 @@ cd EC-LLC-WNCS\local
 pip install -r requirements.txt
 ```
 
-#### Step #5: How to Run the Source Code
-
-This project consists of two main components: a server-side script (`remote_receiver.py`) and a corresponding client-side script (`remote_sender.py`). The server-side script listens for incoming connections, while the client-side script initiates a connection to the server. Both scripts are designed to work together to facilitate communication between the server and the client.
-
-## Usage Instructions
-
-Before running the code, please ensure that you have the IP address of the server handy. You will need this IP address to establish a connection between the server and the client.
-
-### Server-Side Setup
-
-1. Navigate to the server-side directory.
-2. Run the server-side script using the following command:
-
-    ```bash
-    python remote_receiver.py
-    ```
-
-   This command starts the server-side script, which will begin listening for incoming connections.
-
-### Client-Side Setup
-
-1. Navigate to the client-side directory.
-2. Run the client-side script using the following command, replacing `{server IP address}` with the actual IP address of the server:
-
-    ```bash
-    python remote_sender.py -ip {server IP address}
-    ```
-
-   This command initiates a connection to the server using the specified IP address.
-
-Once the server and client scripts are running, they will be able to communicate with each other as intended.
-
-## Additional Information
-
-- Make sure that both the server and the client are connected to the same network if you are running them locally.
-
 | Syntax      | Description (Local side) |
 | ----------- | ----------- |
 |AlphaBot2.py       | contain the functionality to move the AlphaBot       |
@@ -113,7 +77,17 @@ Once the server and client scripts are running, they will be able to communicate
 |edgelv2.py        | Pre-process the image before offloading it to the server       |
 |edgelv3.py        | Pre-process the image before offloading it to the server       |
 |adaptive_sender.py| The mobile robot offloads the information to the server only when a threshold is violated         |
+|requirements.txt  |   To install dependencies |
 
+
+
+### Step #4: Installing the requarments for the lineFollower project 
+We assume you have followed all the procedures from the biggining till here. Now we will install the necessary library to enable run our project. Navigate into the cloned repository directory using the `cd` command:
+
+```
+cd EC-LLC-WNCS\remote
+pip install -r requirements.txt
+```
 
 
 | Syntax      | Description (Remote side) |
@@ -125,6 +99,48 @@ Once the server and client scripts are running, they will be able to communicate
 | edge2_receiver.py   | Receive semi-processed information from (edgelv2.py), finalize the processing, and return a control command       |
 | edge3_receiver.py   | Receive semi-processed information from (edgelv3.py), finalize the processing, and return a control command       |
 | adaptive_receiver.py| Receive from (adaptive_sender.py) communication       |
+|requirements.txt  |   To install dependencies  |
+
+#### Step #5: How to Run the Source Code
+
+This project consists of two main components: a server-side script and a corresponding client-side script. The server-side script listens for incoming connections, while the client-side script initiates a connection to the server. Both scripts are designed to work together to facilitate communication between the server and the client.
+
+## Usage Instructions
+
+Before running the code, please ensure that you have the IP address of the server handy. You will need this IP address to establish a connection between the server and the client.
+
+### Remote {Server-Side Setup}
+
+1. Navigate to the server-side directory.
+2. Run the server-side script using the following command:
+
+    ```
+    python remote_receiver.py
+    ```
+
+   This command starts the server-side script, which will begin listening for incoming connections.
+
+### Local {Client-Side Setup}
+
+1. Navigate to the client-side directory.
+2. Run the client-side script using the following command, replacing `{server IP address}` with the actual IP address of the server:
+
+    ```
+    python remote_sender.py -ip {server IP address}
+    ```
+
+   This command initiates a connection to the server using the specified IP address.
+
+Once the server and client scripts are running, they will be able to communicate with each other as intended.
+
+## Additional Information
+
+- Make sure that both the server and the client are connected to the same network if you are running them locally.
+
+
+
+
+
 
 
 ### How to run the code
