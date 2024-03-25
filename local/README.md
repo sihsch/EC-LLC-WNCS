@@ -1,5 +1,5 @@
 
-Last updated: July 10, 2023
+Last updated: March 25, 2024
 
 # Local-Side Architecture
 
@@ -14,7 +14,7 @@ Follow these steps to set up the local-side code on your local machine:
 
 2. **Install Dependencies:** 
 
-3. **Run the Local-Side Code:** Launch the local-side code by executing the main script. For example: `python remote_sender.py`.
+3. **Run the Local-Side Code:** Launch the local-side code by executing the main script. For example: `python remote_sender.py ip {server ip address}`.
 
 4. **Verify Connectivity:** Ensure that the local-side code can establish a connection with the server. Check the console output or logs for any messages indicating successful connection establishment.
 
@@ -24,11 +24,9 @@ Once the local-side code is running and successfully connected to the server, it
 
 To utilize the system effectively, follow these general guidelines:
 
-1. **User Interaction:** Use the provided user interface or input mechanisms to send commands or interact with the remote devices. Refer to the local-side code's documentation or instructions for specific details on how to use the user interface.
+1. **Data Exchange:** The local-side code will facilitate the transfer of data between the user interface or local sensors and the remote devices. Ensure that the necessary data is exchanged appropriately to achieve the desired results.
 
-2. **Data Exchange:** The local-side code will facilitate the transfer of data between the user interface or local sensors and the remote devices. Ensure that the necessary data is exchanged appropriately to achieve the desired results.
-
-3. **Monitor and Troubleshoot:** Keep an eye on the local-side code's logs or console output to track the communication with the server and any potential issues. Check the documentation or troubleshooting guide for guidance on resolving common problems.
+2. **Monitor and Troubleshoot:** Keep an eye on the local-side code's logs or console output to track the communication with the server and any potential issues. Check the documentation or troubleshooting guide for guidance on resolving common problems.
 
 ## Conclusion
 
