@@ -45,5 +45,6 @@ By following these instructions, you should have successfully set up the local-s
 |edgelv2.py        | Pre-process the image before offloading it to the server       |
 |edgelv3.py        | Pre-process the image before offloading it to the server       |
 |adaptive_sender.py| The mobile robot offloads the information to the server only when a threshold is violated         |
+|requirements.txt  |   To install dependencies |
 
 

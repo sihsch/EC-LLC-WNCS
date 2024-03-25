@@ -1,2 +1,0 @@
-received_img:  135 processing_time:  7.2461587411385995e-06 looptime_time:  0.10203635074474193
-received_img:  85 processing_time:  0.0 looptime_time:  0.1645691002116484

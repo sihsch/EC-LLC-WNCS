@@ -61,6 +61,7 @@ By following these instructions, you should have successfully set up the server-
 | edge2_receiver.py   | Receive semi-processed information from (edgelv2.py), finalize the processing, and return a control command       |
 | edge3_receiver.py   | Receive semi-processed information from (edgelv3.py), finalize the processing, and return a control command       |
 | adaptive_receiver.py| Receive from (adaptive_sender.py) communication       |
+|requirements.txt  |   To install dependencies |
 
 
 
