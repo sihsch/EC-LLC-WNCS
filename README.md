@@ -1,5 +1,5 @@
 
-Last updated: July 10, 2023
+Last updated: March 25, 2024
 # Edge-Computing-Enabled Low-Latency Communication for a Wireless Networked Control System
 
 ## Official implementation for the paper ["Edge-Computing-Enabled Low-Latency Communication for a Wireless Networked Control System"](https://www.mdpi.com/2399798)
