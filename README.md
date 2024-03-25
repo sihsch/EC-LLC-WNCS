@@ -137,13 +137,24 @@ Once the server and client scripts are running, they will be able to communicate
 
 - Make sure that both the server and the client are connected to the same network if you are running them locally.
 
+## Stopping the Code
 
+To ensure smooth stopping of the code execution, follow these steps:
 
+### Server-Side Stopping
 
+1. On the server-side terminal where `remote_receiver.py` is running, press `Ctrl + C`.
+   
+   This action will gracefully terminate the server-side script, closing any open connections and releasing resources.
 
+### Client-Side Stopping
 
+1. After stopping the server-side script, return to the terminal where `remote_sender.py` is running on the local side.
+2. Press `Ctrl + C` to terminate the client-side script.
 
-### How to run the code
+   By stopping the client-side script after the server-side script, you ensure that the connection is properly closed, preventing any unexpected behavior or resource leaks.
+
+Following these steps will help you stop the code execution smoothly and avoid any potential issues.
 
 
 ## Citation
