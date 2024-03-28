@@ -73,10 +73,15 @@ pip install -r requirements.txt
 |full_local.py     | All the computation is performed by the mobile robot        |
 |full_local_display.py | All the computation is performed at the mobile robot, and this will display what the mobile robot camera sees       |
 |remote_sender.py  | offloads all the computation to the server      |
+|remote_sender_api.py  | offloads all the computation to the server      |
 |edgelv1.py        | Pre-process the image before offloading it to the server       |
+|edgelv1_sender_api.py        | Pre-process the image before offloading it to the server       |
 |edgelv2.py        | Pre-process the image before offloading it to the server       |
+|edgelv2_sender_api.py        | Pre-process the image before offloading it to the server       |
 |edgelv3.py        | Pre-process the image before offloading it to the server       |
+|edgelv3_sender_api.py        | Pre-process the image before offloading it to the server       |
 |adaptive_sender.py| The mobile robot offloads the information to the server only when a threshold is violated         |
+|adaptive_sender_sender_api.py| The mobile robot offloads the information to the server only when a threshold is violated         |
 |requirements.txt  |   To install dependencies |
 
 
@@ -95,20 +100,29 @@ pip install -r requirements.txt
 | PID.py              | PID algorithm for smoothly tracking the line       |
 | imgProcessing.py    | For extracting useful information from the image         |
 | remote_receiver.py  | Receive an image from (remote_sender.py), process it, and return a control command        |
+| remote_receiver_api.py  | Receive an image from (remote_sender.py), process it, and return a control command        |
 | edge1_receiver.py   | Receive semi-processed information from (edgelv1.py), finalize the processing, and return a control command       |
+| edge1_receiver_api.py   | Receive semi-processed information from (edgelv1.py), finalize the processing, and return a control command       |
 | edge2_receiver.py   | Receive semi-processed information from (edgelv2.py), finalize the processing, and return a control command       |
+| edge2_receiver_api.py   | Receive semi-processed information from (edgelv2.py), finalize the processing, and return a control command       |
 | edge3_receiver.py   | Receive semi-processed information from (edgelv3.py), finalize the processing, and return a control command       |
+| edge3_receiver_api.py   | Receive semi-processed information from (edgelv3.py), finalize the processing, and return a control command       |
 | adaptive_receiver.py| Receive from (adaptive_sender.py) communication       |
+| adaptive_receiver_api.py| Receive from (adaptive_sender.py) communication       |
 |requirements.txt  |   To install dependencies  |
 
-#### Step #5: How to Run the Source Code
+### Step #5: How to Run the Source Code
+
 
 This project consists of two main components: a server-side script and a corresponding client-side script. The server-side script listens for incoming connections, while the client-side script initiates a connection to the server. Both scripts are designed to work together to facilitate communication between the server and the client.
 
-## Usage Instructions
 
+
+## Usage Instructions
 Before running the code, please ensure that you have the IP address of the server handy. You will need this IP address to establish a connection between the server and the client.
 
+
+### Step #5: Socket-based approach.
 ### Remote {Server-Side Setup}
 
 1. Navigate to the server-side directory.
@@ -133,7 +147,34 @@ Before running the code, please ensure that you have the IP address of the serve
 
 Once the server and client scripts are running, they will be able to communicate with each other as intended.
 
+### Step #5: Rest-API based approach.
+### Remote {Server-Side Setup}
+
+1. Navigate to the server-side directory.
+2. Run the server-side script using the following command:
+
+    ```
+    python remote_receiver_api.py
+    ```
+
+   This command starts the server-side script, which will begin listening for incoming connections.
+
+### Local {Client-Side Setup}
+
+1. Navigate to the client-side directory.
+2. Run the client-side script using the following command, replacing `{server IP address}` with the actual IP address of the server:
+
+    ```
+    python remote_sender_api.py -ip {server IP address}
+    ```
+
+   This command initiates a connection to the server using the specified IP address.
+
+Once the server and client scripts are running, they will be able to communicate with each other as intended.
+
 ## Additional Information
+
+- When using the REST API version, you can run the code on different networks, but you will need to configure port forwarding on the server side. Port forwarding allows external requests to access the specific port on your local network where the REST API server is running. This enables clients from external networks to communicate with your server over the internet. However, it's crucial to ensure that proper security measures are implemented, such as firewall settings and authentication mechanisms, to protect your server from unauthorized access and potential security risks when enabling port forwarding. 
 
 - Make sure that both the server and the client are connected to the same network if you are running them locally.
 
