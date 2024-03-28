@@ -2,3 +2,4 @@ imagezmq==1.1.1
 imutils==0.5.4
 opencv-python==4.5.3.56
 pyzmq==25.1.2
+bottle==0.12.25
