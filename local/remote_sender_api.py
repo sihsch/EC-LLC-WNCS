@@ -4,6 +4,13 @@ import requests
 import pickle
 import time
 import cv2
+import argparse
+
+
+ap = argparse.ArgumentParser()
+ap.add_argument("-ip", required=True,
+	help="IP address of the server is required")
+args = vars(ap.parse_args())
 
 
 # Function to continuously capture and send images
@@ -61,7 +68,8 @@ def send_images(server_url):
 
 if __name__ == '__main__':
     # URL of the server
-    server_url = "http://192.168.1.72:8080"  # Replace with the server's IP address # 114.71.220.145
+    #server_url = "http://192.168.1.72:8080"  # Replace with the server's IP address # 114.71.220.145
+    server_url = "http://{}:8080".format(args['ip'])
 
     # Create and start a thread for sending images
     image_thread = threading.Thread(target=send_images, args=(server_url,))
