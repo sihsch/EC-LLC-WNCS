@@ -73,10 +73,15 @@ pip install -r requirements.txt
 |full_local.py     | All the computation is performed by the mobile robot        |
 |full_local_display.py | All the computation is performed at the mobile robot, and this will display what the mobile robot camera sees       |
 |remote_sender.py  | offloads all the computation to the server      |
+|remote_sender_api.py  | offloads all the computation to the server      |
 |edgelv1.py        | Pre-process the image before offloading it to the server       |
+|edgelv1_sender_api.py        | Pre-process the image before offloading it to the server       |
 |edgelv2.py        | Pre-process the image before offloading it to the server       |
+|edgelv2_sender_api.py        | Pre-process the image before offloading it to the server       |
 |edgelv3.py        | Pre-process the image before offloading it to the server       |
+|edgelv3_sender_api.py        | Pre-process the image before offloading it to the server       |
 |adaptive_sender.py| The mobile robot offloads the information to the server only when a threshold is violated         |
+|adaptive_sender_sender_api.py| The mobile robot offloads the information to the server only when a threshold is violated         |
 |requirements.txt  |   To install dependencies |
 
 
@@ -95,10 +100,15 @@ pip install -r requirements.txt
 | PID.py              | PID algorithm for smoothly tracking the line       |
 | imgProcessing.py    | For extracting useful information from the image         |
 | remote_receiver.py  | Receive an image from (remote_sender.py), process it, and return a control command        |
+| remote_receiver_api.py  | Receive an image from (remote_sender.py), process it, and return a control command        |
 | edge1_receiver.py   | Receive semi-processed information from (edgelv1.py), finalize the processing, and return a control command       |
+| edge1_receiver_api.py   | Receive semi-processed information from (edgelv1.py), finalize the processing, and return a control command       |
 | edge2_receiver.py   | Receive semi-processed information from (edgelv2.py), finalize the processing, and return a control command       |
+| edge2_receiver_api.py   | Receive semi-processed information from (edgelv2.py), finalize the processing, and return a control command       |
 | edge3_receiver.py   | Receive semi-processed information from (edgelv3.py), finalize the processing, and return a control command       |
+| edge3_receiver_api.py   | Receive semi-processed information from (edgelv3.py), finalize the processing, and return a control command       |
 | adaptive_receiver.py| Receive from (adaptive_sender.py) communication       |
+| adaptive_receiver_api.py| Receive from (adaptive_sender.py) communication       |
 |requirements.txt  |   To install dependencies  |
 
 ### Step #5: How to Run the Source Code
