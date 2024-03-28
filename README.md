@@ -138,8 +138,33 @@ Before running the code, please ensure that you have the IP address of the serve
 Once the server and client scripts are running, they will be able to communicate with each other as intended.
 
 ### Step #5: Rest-API based approach.
+### Remote {Server-Side Setup}
+
+1. Navigate to the server-side directory.
+2. Run the server-side script using the following command:
+
+    ```
+    python remote_receiver_api.py
+    ```
+
+   This command starts the server-side script, which will begin listening for incoming connections.
+
+### Local {Client-Side Setup}
+
+1. Navigate to the client-side directory.
+2. Run the client-side script using the following command, replacing `{server IP address}` with the actual IP address of the server:
+
+    ```
+    python remote_sender_api.py -ip {server IP address}
+    ```
+
+   This command initiates a connection to the server using the specified IP address.
+
+Once the server and client scripts are running, they will be able to communicate with each other as intended.
 
 ## Additional Information
+
+- When using the REST API version, you can run the code on different networks, but you will need to configure port forwarding on the server side. Port forwarding allows external requests to access the specific port on your local network where the REST API server is running. This enables clients from external networks to communicate with your server over the internet. However, it's crucial to ensure that proper security measures are implemented, such as firewall settings and authentication mechanisms, to protect your server from unauthorized access and potential security risks when enabling port forwarding. 
 
 - Make sure that both the server and the client are connected to the same network if you are running them locally.
 
