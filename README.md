@@ -107,11 +107,12 @@ pip install -r requirements.txt
 This project consists of two main components: a server-side script and a corresponding client-side script. The server-side script listens for incoming connections, while the client-side script initiates a connection to the server. Both scripts are designed to work together to facilitate communication between the server and the client.
 
 
-#### Step #5: Socet base aproache
-## Usage Instructions
 
+## Usage Instructions
 Before running the code, please ensure that you have the IP address of the server handy. You will need this IP address to establish a connection between the server and the client.
 
+
+### Step #5: Socket-based approach.
 ### Remote {Server-Side Setup}
 
 1. Navigate to the server-side directory.
@@ -136,8 +137,7 @@ Before running the code, please ensure that you have the IP address of the serve
 
 Once the server and client scripts are running, they will be able to communicate with each other as intended.
 
-
-#### Step #5: Rest-API base aproache
+### Step #5: Rest-API based approach.
 
 ## Additional Information
 
