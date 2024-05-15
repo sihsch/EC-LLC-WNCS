@@ -48,7 +48,7 @@ sudo raspi-config
 ```
 sudo apt update
 sudo apt install fonts-wqy-zenhei
-sudo pip install rpi_ws281x
+pip install rpi_ws281x
 ```
 
 
